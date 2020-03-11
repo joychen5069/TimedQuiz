@@ -30,19 +30,19 @@ function sendMessage() {
 
 //five question quiz INPUT ACTUAL QUESTIONS LATER
 
-var quizContainer = document.getElementById('quiz');
-var resultsContainer = document.getElementById('results');
-var submitButton = document.getElementById('submit');
+// var quizContainer = document.getElementById('quiz');
+// var resultsContainer = document.getElementById('results');
+// var submitButton = document.getElementById('submit');
 
-if MyQuestions = [
-    { question: "What?",
-    answers: {
-        a: "what?",
-        b: "who?",
-        c: "no",
-    },
-    correctAnswer: "a"
-}, ]
+// if MyQuestions = [
+//     { question: "What?",
+//     answers: {
+//         a: "what?",
+//         b: "who?",
+//         c: "no",
+//     },
+//     correctAnswer: "a"
+// }, ]
 
 
 //create the ability to retake the quiz
