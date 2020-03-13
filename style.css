@@ -1,6 +1,8 @@
+body {
+    background-color: rgb(109, 113, 251);
+}
 
-
-
+/*shift the button over so that timer is visible*/
 #submit {
     margin-left: 50px;
 }

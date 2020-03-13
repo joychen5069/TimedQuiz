@@ -26,7 +26,7 @@ var MyQuestions = [
     }
 
 ]
-
+var Question = MyQuestions[questionCounter]
 var CorAn = MyQuestions[questionCounter].correctAnswer
 
 //score starts at 120
@@ -61,14 +61,14 @@ function sendMessage() {
 
 function QuestionLoop() {
 
-    $("#quiz").append(MyQuestions[questionCounter].question)
+    $("#quiz").append(Question.question)
     
     var answersHtml = ""
-    console.log(MyQuestions[questionCounter].answers.length)
-    for (var i = 0; i < MyQuestions[questionCounter].answers.length; i++) {
+    console.log(Question.answers.length)
+    for (var i = 0; i < Question.answers.length; i++) {
         answersHtml+= `<label class="btn btn-secondary">
-        <input type="radio" name="options" id="option${i+1}" value="${MyQuestions[questionCounter].answers[i]}"
-        > ${MyQuestions[questionCounter].answers[i]}
+        <input type="radio" name="options" id="option${i+1}" value="${Question.answers[i]}"
+        > ${Question.answers[i]}
       </label>`;
     // console.log(answersHtml)   
     // console.log('inside loop') 
@@ -79,26 +79,30 @@ function QuestionLoop() {
     // var CorAn = MyQuestions[i].correctAnswer
 //submit button, can only move onto the next question if they get it right
 $("#submit").on("click", function() {
-    var checked = $("input[name='options']:checked").val()
-    console.log(checked)
-    console.log(CorAn)
+    var checked = $("input[name='options']:checked").val();
+    console.log(checked);
+    console.log(CorAn);
 
-     //see if they got the question right
-    if (checked == CorAn){
-        console.log("correct")
-     //if they get it right, go on to the next question
-        QuestionLoop();
+    while (i = 0, i < Question.length, i++) { 
+  
+        if (checked === CorAn){
+            console.log("correct");
+            QuestionLoop();
+          
+        
 
 
-    } 
-    //If they get it wrong, do not go to the next question
-    else { 
-        console.log("Nope")
-    }
+        } 
+        //If they get it wrong, do not go to the next question
+        // else { 
+        //     console.log("Nope")
+}}
 
+);
 }
-)
-}
+
+
+
 
 
 //ability to start quiz, take away once quiz starts
