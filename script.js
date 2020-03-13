@@ -26,8 +26,8 @@ var MyQuestions = [
     }
 
 ]
-var CorAn = MyQuestions[questionCounter].correctAnswer
 
+var CorAn = MyQuestions[questionCounter].correctAnswer
 
 //score starts at 120
 var secondsLeft = 5
@@ -75,17 +75,20 @@ function QuestionLoop() {
     }
     $("#answers").append(answersHtml)
     // console.log(answersHtml, "it works")
-
-
+    questionCounter++
+    // var CorAn = MyQuestions[i].correctAnswer
 //submit button, can only move onto the next question if they get it right
 $("#submit").on("click", function() {
     var checked = $("input[name='options']:checked").val()
     console.log(checked)
     console.log(CorAn)
 
-        //start loop to the next question here
+     //see if they got the question right
     if (checked == CorAn){
         console.log("correct")
+     //if they get it right, go on to the next question
+        QuestionLoop();
+
 
     } 
     //If they get it wrong, do not go to the next question
