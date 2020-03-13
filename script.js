@@ -9,14 +9,14 @@ var MyQuestions = [
     {
         question: "What?",
         answers: [
-             "what?",
-            "who?",
-             "no",
+             "1",
+            "2",
+             "3",
         ],
-        correctAnswer: "who"
+        correctAnswer: "3"
     },
     {
-        question: "What?",
+        question: "When?",
         answers: [
             "what?",
             "who?",
@@ -26,9 +26,10 @@ var MyQuestions = [
     }
 
 ]
+var CorAn = MyQuestions[questionCounter].correctAnswer
 
 
-//score starts at 5
+//score starts at 120
 var secondsLeft = 5
 
 
@@ -66,29 +67,42 @@ function QuestionLoop() {
     console.log(MyQuestions[questionCounter].answers.length)
     for (var i = 0; i < MyQuestions[questionCounter].answers.length; i++) {
         answersHtml+= `<label class="btn btn-secondary">
-        <input type="radio" name="options" id="option${i+1}" value=${MyQuestions[questionCounter].answers[i]}
+        <input type="radio" name="options" id="option${i+1}" value="${MyQuestions[questionCounter].answers[i]}"
         > ${MyQuestions[questionCounter].answers[i]}
       </label>`;
-    console.log(answersHtml)   
-    console.log('inside loop') 
+    // console.log(answersHtml)   
+    // console.log('inside loop') 
     }
     $("#answers").append(answersHtml)
     // console.log(answersHtml, "it works")
-}
 
-//submit button
+
+//submit button, can only move onto the next question if they get it right
 $("#submit").on("click", function() {
     var checked = $("input[name='options']:checked").val()
     console.log(checked)
-    
+    console.log(CorAn)
+
+        //start loop to the next question here
+    if (checked == CorAn){
+        console.log("correct")
+
+    } 
+    //If they get it wrong, do not go to the next question
+    else { 
+        console.log("Nope")
+    }
+
 }
 )
+}
 
 
 //ability to start quiz, take away once quiz starts
 $("#start").on("click", function() {
     // setTime();
     QuestionLoop();
+    $("#start").hide();
 })
 
 //create the ability to retake the quiz
