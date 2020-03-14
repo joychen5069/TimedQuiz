@@ -26,20 +26,30 @@ var MyQuestions = [
 var questionIndex = 0
 
 //score starts at 60
-var secondsLeft = 60
+var secondsLeft = 6
 
 
 //quiz should take 60 seconds (fixed it later)
 function setTime() {
     var timerInterval = setInterval(function () {
         console.log("timerInterval:", timerInterval);
-        secondsLeft--;
-        timeEl.textContent = "score: " + secondsLeft;
+
+        if (questionIndex >= MyQuestions.length) {
+            $("#score").append("Your score is " + secondsLeft)
+            clearInterval(timerInterval)
+            console.log(secondsLeft)
+        }
+
+        else {
+            secondsLeft--;
+            timeEl.textContent = "score: " + secondsLeft;
+        }
 
         if (secondsLeft === 0) {
             clearInterval(timerInterval);
             sendMessage();
         }
+       
 
     }, 1000);
 }
@@ -48,7 +58,10 @@ function setTime() {
 //if time runs out, alert the user
 function sendMessage() {
     if (secondsLeft === 0)
-        alert("You're out of time. Try again")
+        $("#results").append("You failed to complete the quiz. Refresh and try again")
+        $("#submit").hide();
+        $("#questions").html("")
+        $("#answers").html("")
 }
 
 //the faster the user completes the quiz, the higher their score (aka their score is the number of seconds left)
@@ -85,9 +98,16 @@ $("#submit").on("click", function() {
     if (checked === MyQuestions[questionIndex].correctAnswer) {
         questionIndex++
 
+        //if user completes questions
         if (questionIndex >= MyQuestions.length) {
             //show results
-            alert("you've completed the quiz")
+           $("#results").append("Congrats. You've finished!");
+
+
+           //hide button, and questions
+           $("#submit").hide();
+           $("#questions").html("")
+           $("#answers").html("")
         }
         else {
             $("#questions").html("")
@@ -129,13 +149,17 @@ $("#submit").on("click", function() {
 
 //ability to start quiz, take away intro once quiz starts
 $("#start").on("click", function() {
-    // setTime();
-    
-   
+    setTime();
+   $("#submit").show();
     AskQuestion(0);
     $("#start").hide();
     $("#intro").hide();
 })
+
+//hide submit button
+$(document).ready(function() {
+    $("#submit").hide();
+});
 
 //create the ability to retake the quiz
 
