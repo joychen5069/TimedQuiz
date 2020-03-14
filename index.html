@@ -14,37 +14,46 @@
     <!--time componet-->
     <div class="time"> </div>
 
-  
 
-    </ul>
 
-    <div id="intro">
-        <p>
+    <div class="card" id="intro">
+        <p class="card-body">
             Welcome to the coding quiz. You have 60 seconds to complete the quiz. You cannot go onto the next question
             until you have answered the first one correctly. You can see your high scores and reset them at the end if
             you wish.
         </p>
-        <p>
+        <p class="card-body">
             Click on the start button below to get started
         </p>
     </div>
 
 
-  <!--append the questions to this div-->
-  <div id="questions">
-   
-</div>
-  <!--append answers to this div-->
-  <div id="answers">
-    
-  </div>
-  
-<div id="results"></div>
-<div id="score"></div>
+    <!--append the questions to this div-->
+    <div class="card" id="questions">
+
+    </div>
+    <!--append answers to this div-->
+    <div class="card" id="answers">
+
+    </div>
+    <!--did the user win or lose-->
+    <div id="results"></div>
+    <!--append score when they win-->
+    <div id="score"></div>
 
     <button id="start" name="start">start</button>
     <button id="submit">submit</button>
-    <div id="highscore"></div>
+
+    <div class="card">
+        <form id="form">
+            <input class="form-control form-control-sm" type="text" placeholder="enter intials here" />
+        </form>
+    </div>
+    <button id="save">save</button>
+   
+
+    <!--have card visible when user clicks-->
+    <div id="highscores"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="./script.js"></script>

@@ -1,6 +1,8 @@
-var timeEl = document.querySelector(".time")
-var quizContainer = document.getElementById('quiz');
-var resultsContainer = document.getElementById('results');
+var timeEl = document.querySelector(".time");
+var initials = $("#form").val();
+console.log(initials)
+
+
 
 var MyQuestions = [
     {
@@ -29,9 +31,9 @@ var questionIndex = 0
 var secondsLeft = 6
 
 
-//quiz should take 60 seconds (fixed it later)
+//quiz should take 60 seconds (fix it later)
 function setTime() {
-    timeEl.textContent = "score: " + secondsLeft
+    timeEl.textContent = "time left: " + secondsLeft
     var timerInterval = setInterval(function () {
         console.log("timerInterval:", timerInterval);
 
@@ -43,7 +45,7 @@ function setTime() {
 
         else {
             secondsLeft--;
-            timeEl.textContent = "score: " + secondsLeft;
+            timeEl.textContent = "time left: " + secondsLeft;
         }
 
         if (secondsLeft === 0) {
@@ -103,6 +105,8 @@ $("#submit").on("click", function() {
         if (questionIndex >= MyQuestions.length) {
             //show results
            $("#results").append("Congrats. You've finished!");
+           $("#save").show();
+           $("#form").show();
 
 
            //hide button, and questions
@@ -120,28 +124,6 @@ $("#submit").on("click", function() {
     else {
         //if user fails to get question right, DING them and keep question on page
     }
-
-
-
-//for each question in my list, loop
-    // for (i = 0; i < MyQuestions.length; i++) { 
-    //     var Question = MyQuestions[questionCounter]
-    //     var CorAn = MyQuestions[questionCounter].correctAnswer
-    //     if (checked === CorAn){
-    //         $("#question1").hide();
-    //         $("#answers1").hide();
-    //        console.log("correct");
-            
-          
-        
-
-
-        // } 
-        // // If they get it wrong, do not go to the next question
-        // else { 
-        //     console.log("Nope")
-        // }
-
     }
 
 )
@@ -158,12 +140,15 @@ $("#start").on("click", function() {
     $("#intro").hide();
 })
 
-//hide submit button
+//hide submit button, save button, and form when page loads
 $(document).ready(function() {
     $("#submit").hide();
+    $("#save").hide();
+    $("#form").hide();
 });
 
-//create the ability to retake the quiz
+//save the user's score
+
 
 //create the ability to reset the scores
 
