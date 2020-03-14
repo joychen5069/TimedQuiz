@@ -2,8 +2,6 @@ var timeEl = document.querySelector(".time")
 var quizContainer = document.getElementById('quiz');
 var resultsContainer = document.getElementById('results');
 
-var questionCounter = 0
-
 var MyQuestions = [
     {
         question: "What?",
@@ -25,9 +23,8 @@ var MyQuestions = [
     }
 
 ]
-var Question = MyQuestions[questionCounter]
-var CorAn = MyQuestions[questionCounter].correctAnswer
-console.log(Question.answers.length)
+var questionIndex = 0
+
 //score starts at 60
 var secondsLeft = 60
 
@@ -58,9 +55,10 @@ function sendMessage() {
 
 //five question quiz INPUT ACTUAL QUESTIONS LATER
 //figure out how to go from question 1 to question 2 and so forth
-function QuestionLoop() {
+function AskQuestion() {
+    var Question = MyQuestions[questionIndex];
 
-    $("#question1").append(Question.question)
+    $("#questions").append(Question.question)
     
     var answersHtml = ""
     console.log(Question.answers.length)
@@ -71,38 +69,59 @@ function QuestionLoop() {
       </label>`;
 
     }
-    $("#answers1").append(answersHtml)
+    $("#answers").append(answersHtml)
 
 }
 
- questionCounter+=1
- console.log(questionCounter)
 
 //submit button, can only move onto the next question if they get it right
 $("#submit").on("click", function() { 
     console.log('button was clicked')
     var checked = $("input[name='options']:checked").val();
     console.log(checked);
-    console.log(CorAn);
+    // console.log(CorAn);
 
-    for (i = 0; i < MyQuestions.length; i++) { 
-        if (checked === CorAn){
-            $("#question1").hide();
-            $("#answers1").hide();
-           console.log("correct");
+    //when you click submit, if the user gets the question right, continue to the next question
+    if (checked === MyQuestions[questionIndex].correctAnswer) {
+        questionIndex++
+
+        if (questionIndex >= MyQuestions.length) {
+            //show results
+            alert("you've completed the quiz")
+        }
+        else {
+            $("#questions").html("")
+            $("#answers").html("")
+            AskQuestion();
+        }
+    }
+    else {
+        
+    }
+
+
+
+//for each question in my list, loop
+    // for (i = 0; i < MyQuestions.length; i++) { 
+    //     var Question = MyQuestions[questionCounter]
+    //     var CorAn = MyQuestions[questionCounter].correctAnswer
+    //     if (checked === CorAn){
+    //         $("#question1").hide();
+    //         $("#answers1").hide();
+    //        console.log("correct");
             
           
         
 
 
-        } 
-        // If they get it wrong, do not go to the next question
-        else { 
-            console.log("Nope")
-        }
+        // } 
+        // // If they get it wrong, do not go to the next question
+        // else { 
+        //     console.log("Nope")
+        // }
 
     }
-}
+
 )
 
 
@@ -111,7 +130,9 @@ $("#submit").on("click", function() {
 //ability to start quiz, take away intro once quiz starts
 $("#start").on("click", function() {
     // setTime();
-    QuestionLoop();
+    
+   
+    AskQuestion(0);
     $("#start").hide();
     $("#intro").hide();
 })
