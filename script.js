@@ -1,7 +1,6 @@
 var timeEl = document.querySelector(".time")
 var quizContainer = document.getElementById('quiz');
 var resultsContainer = document.getElementById('results');
-var submitButton = document.getElementById('submit');
 
 var questionCounter = 0
 
@@ -28,12 +27,12 @@ var MyQuestions = [
 ]
 var Question = MyQuestions[questionCounter]
 var CorAn = MyQuestions[questionCounter].correctAnswer
+console.log(Question.answers.length)
+//score starts at 60
+var secondsLeft = 60
 
-//score starts at 120
-var secondsLeft = 5
 
-
-//quiz should take 120 seconds (fixed it later)
+//quiz should take 60 seconds (fixed it later)
 function setTime() {
     var timerInterval = setInterval(function () {
         console.log("timerInterval:", timerInterval);
@@ -58,10 +57,10 @@ function sendMessage() {
 //the faster the user completes the quiz, the higher their score (aka their score is the number of seconds left)
 
 //five question quiz INPUT ACTUAL QUESTIONS LATER
-
+//figure out how to go from question 1 to question 2 and so forth
 function QuestionLoop() {
 
-    $("#quiz").append(Question.question)
+    $("#question1").append(Question.question)
     
     var answersHtml = ""
     console.log(Question.answers.length)
@@ -70,46 +69,51 @@ function QuestionLoop() {
         <input type="radio" name="options" id="option${i+1}" value="${Question.answers[i]}"
         > ${Question.answers[i]}
       </label>`;
-    // console.log(answersHtml)   
-    // console.log('inside loop') 
+
     }
-    $("#answers").append(answersHtml)
-    // console.log(answersHtml, "it works")
-    questionCounter++
-    // var CorAn = MyQuestions[i].correctAnswer
+    $("#answers1").append(answersHtml)
+
+}
+
+ questionCounter+=1
+ console.log(questionCounter)
+
 //submit button, can only move onto the next question if they get it right
-$("#submit").on("click", function() {
+$("#submit").on("click", function() { 
+    console.log('button was clicked')
     var checked = $("input[name='options']:checked").val();
     console.log(checked);
     console.log(CorAn);
 
-    while (i = 0, i < Question.length, i++) { 
-  
+    for (i = 0; i < MyQuestions.length; i++) { 
         if (checked === CorAn){
-            console.log("correct");
-            QuestionLoop();
+            $("#question1").hide();
+            $("#answers1").hide();
+           console.log("correct");
+            
           
         
 
 
         } 
-        //If they get it wrong, do not go to the next question
-        // else { 
-        //     console.log("Nope")
-}}
+        // If they get it wrong, do not go to the next question
+        else { 
+            console.log("Nope")
+        }
 
-);
+    }
 }
+)
 
 
 
 
-
-//ability to start quiz, take away once quiz starts
+//ability to start quiz, take away intro once quiz starts
 $("#start").on("click", function() {
     // setTime();
     QuestionLoop();
     $("#start").hide();
+    $("#intro").hide();
 })
 
 //create the ability to retake the quiz
