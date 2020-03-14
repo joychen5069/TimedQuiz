@@ -31,6 +31,7 @@ var secondsLeft = 6
 
 //quiz should take 60 seconds (fixed it later)
 function setTime() {
+    timeEl.textContent = "score: " + secondsLeft
     var timerInterval = setInterval(function () {
         console.log("timerInterval:", timerInterval);
 
@@ -109,14 +110,15 @@ $("#submit").on("click", function() {
            $("#questions").html("")
            $("#answers").html("")
         }
-        else {
+        else { 
+            //clear divs and append new questions
             $("#questions").html("")
             $("#answers").html("")
             AskQuestion();
         }
     }
     else {
-        
+        //if user fails to get question right, DING them and keep question on page
     }
 
 
