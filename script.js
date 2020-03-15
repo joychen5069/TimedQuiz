@@ -1,8 +1,11 @@
 var timeEl = document.querySelector(".time");
-var initials = $("#form").val();
-console.log(initials)
+var msgDiv = document.querySelector("#msg");
+var userInput = document.querySelector("#user-init")
+var userScore = document.querySelector("#user-scores")
 
 
+// userInput.textContent = username;
+// userScore.textContent = userscore;
 
 var MyQuestions = [
     {
@@ -23,13 +26,17 @@ var MyQuestions = [
         ],
         correctAnswer: "no"
     }
-
 ]
+
+function displayMessage(type, message) {
+    msgDiv.textContent = message;
+    msgDiv.setAttribute("class", type);
+  }
+
 var questionIndex = 0
 
 //score starts at 60
 var secondsLeft = 6
-
 
 //quiz should take 60 seconds (fix it later)
 function setTime() {
@@ -52,11 +59,8 @@ function setTime() {
             clearInterval(timerInterval);
             sendMessage();
         }
-       
-
-    }, 1000);
+      }, 1000);
 }
-
 
 //if time runs out, alert the user
 function sendMessage() {
@@ -83,12 +87,9 @@ function AskQuestion() {
         <input type="radio" name="options" id="option${i+1}" value="${Question.answers[i]}"
         > ${Question.answers[i]}
       </label>`;
-
     }
     $("#answers").append(answersHtml)
-
 }
-
 
 //submit button, can only move onto the next question if they get it right
 $("#submit").on("click", function() { 
@@ -107,7 +108,6 @@ $("#submit").on("click", function() {
            $("#results").append("Congrats. You've finished!");
            $("#save").show();
            $("#form").show();
-
 
            //hide button, and questions
            $("#submit").hide();
@@ -128,9 +128,6 @@ $("#submit").on("click", function() {
 
 )
 
-
-
-
 //ability to start quiz, take away intro once quiz starts
 $("#start").on("click", function() {
     setTime();
@@ -142,14 +139,40 @@ $("#start").on("click", function() {
 
 //hide submit button, save button, and form when page loads
 $(document).ready(function() {
-    $("#submit").hide();
-    $("#save").hide();
-    $("#form").hide();
+    // $("#submit").hide();
+    // $("#save").hide();
+    // $("#name").hide();
+    // $("#high-scores").hide();
 });
 
 //save the user's score
+// function renderLast() {
+//     var name = localStorage.getItem("name")
+      
+//     if (name === null) {
+//       return
+//     }
 
 
-//create the ability to reset the scores
+$("#save").on("click", function(event) {
+    var initials = document.querySelector("#name").value;
+    //if user doesnt input text, send error
+    if (initials === ""){
+        displayMessage("error", "cannot be blank")
+    }
 
+//save score to localStorage and put into highscore board
+localStorage.setItem("initials" , initials);
+localStorage.setItem("score" , secondsLeft);
+var highscore = [initials + " "+ secondsLeft];
+localStorage.setItem("#user-scores", JSON.stringify(highscore));
+var board = JSON.parse(localStorage.getItem("#user-scores"));
+
+$("#user-scores").append(board)
+})
+
+//create the ability to retry
+$("#retest").on("click", function() {
+    document.location.reload();
+})
 //create the ability to see the scores
