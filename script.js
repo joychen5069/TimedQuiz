@@ -149,7 +149,7 @@ $(document).ready(function () {
 
 //creat score sections
 $("#save").on("click", function (event) {
-    $("#high-scores").show();
+    // $("#high-scores").show();
     $("#retest").show();
     var initials = document.querySelector("#name").value;
     //if user doesnt input text, send error
@@ -168,25 +168,36 @@ $("#save").on("click", function (event) {
     board.push(highscore)
     localStorage.setItem("#user-scores", JSON.stringify(board));
     console.log(board) //make sure it gets added to list
-    $("#user-scores").append(board)}
-)
+    // $("#user-scores").append(board);
+
+    var ul = document.createElement("ul");
+    document.getElementById("user-scores").appendChild(ul);
+
+    board.forEach(function(board) {
+        var li = document.createElement("li");
+        ul.append(li);
+
+        li.innerHTML += board;
+    });
+
+});
 
 //add score to board without deleting others
-function renderScore() {
+// function renderScore() {
 
-    //make a new li for each input
-    for (var i = 0; i < user-scores.length; i++) {
-        var element = user-scores[i];
+//     //make a new li for each input
+//     for (var i = 0; i < user-scores.length; i++) {
+//         var element = user-scores[i];
 
-        var li = document.createElement("li")
-        li.textContent = element
-        li.setAttribute("data-index", i);
+//         var li = document.createElement("li")
+//         li.textContent = element
+//         li.setAttribute("data-index", i);
 
-        li.appendChild(save)
-        userScore.appendChild(li)
+//         li.appendChild(save)
+//         userScore.appendChild(li)
         
-    }
-}
+//     }
+// }
 
 //create the ability to retry
 $("#retest").on("click", function () {
