@@ -1,13 +1,13 @@
+//set variables
 var timeEl = document.querySelector(".time");
 var msgDiv = document.querySelector("#msg");
-// var userInput = document.querySelector("#user-init")
-var userScore = document.querySelector("#user-scores")
-var ding = document.createElement("audio")
-ding.setAttribute("src", "assets/Wrong-answer-sound-effect.mp3");
+var userScore = document.querySelector("#user-scores");
+var wrong = document.createElement("audio");
+var right = document.createElement("audio");
+wrong.setAttribute("src", "assets/bad-beep.mp3");
+right.setAttribute("src", "assets/good-beep.wav");
 
-// userInput.textContent = username;
-// userScore.textContent = userscore;
-
+//create question list
 var MyQuestions = [
     {
         question: "Which of the following is the correct way to indicate an array? ",
@@ -69,21 +69,20 @@ var questionIndex = 0
 //score starts at 60
 var secondsLeft = 60
 
-//quiz should take 60 seconds (fix it later)
+//quiz should take 60 seconds
 function setTime() {
-    timeEl.textContent = "time left: " + secondsLeft
+    timeEl.textContent = "Time Left: " + secondsLeft
     var timerInterval = setInterval(function () {
         console.log("timerInterval:", timerInterval);
 
         if (questionIndex >= MyQuestions.length) {
-            $("#score").append("Your score is " + secondsLeft)
             clearInterval(timerInterval)
             console.log(secondsLeft)
         }
 
         else {
             secondsLeft--;
-            timeEl.textContent = "time left: " + secondsLeft;
+            timeEl.textContent = "Time Left: " + secondsLeft;
         }
 
         if (secondsLeft === 0) {
@@ -96,7 +95,7 @@ function setTime() {
 //if time runs out, alert the user
 function sendMessage() {
     if (secondsLeft === 0)
-        ding.play();
+        wrong.play();
     $("#results").append("You failed to complete the quiz. Refresh and try again")
     $("#submit").hide();
     $("#questions").html("")
@@ -135,7 +134,9 @@ $("#submit").on("click", function () {
         //if user completes questions
         if (questionIndex >= MyQuestions.length) {
             //show results
+            right.play();
             $("#results").append("Congrats. You've finished!");
+            $("#score").append("Your score is " + secondsLeft)
             $("#save").show();
             $("#form").show();
             $("#name").show();
@@ -147,18 +148,17 @@ $("#submit").on("click", function () {
         }
         else {
             //clear divs and append new questions
-            $("#questions").html("")
-            $("#answers").html("")
+            right.play();
+            $("#questions").html("");
+            $("#answers").html("");
             AskQuestion();
         }
     }
-    else {
-        ding.play();
-
+    else { //take away a second if they get it wrong
+        wrong.play();
+        secondsLeft--
     }
-}
-
-)
+})
 
 //ability to start quiz, take away intro once quiz starts
 $("#start").on("click", function () {
@@ -192,7 +192,8 @@ $("#save").on("click", function (event) {
     var initials = document.querySelector("#name").value;
     //if user doesnt input text, send error
     if (initials === "") {
-        displayMessage("error", "cannot be blank")
+        displayMessage("error", "Cannot Be Blank");
+        $("#high-scores").hide();
     }
     //create an empty array if user-score is empty 
     else if (localStorage.getItem("#user-scores") === null) {
@@ -202,7 +203,7 @@ $("#save").on("click", function (event) {
         var board = JSON.parse(localStorage.getItem("#user-scores"));
     }
 
-    var highscore = initials + " " + secondsLeft;
+    var highscore = secondsLeft + " | " + initials;
     board.push(highscore)
     localStorage.setItem("#user-scores", JSON.stringify(board));
     console.log(board) //make sure it gets added to list
@@ -214,7 +215,6 @@ $("#save").on("click", function (event) {
     board.forEach(function (board) {
         var li = document.createElement("li");
         ul.append(li);
-
         li.innerHTML += board;
     });
 
