@@ -9,23 +9,53 @@ var userScore = document.querySelector("#user-scores")
 
 var MyQuestions = [
     {
-        question: "What?",
+        question: "Which of the following is the correct way to indicate an array? ",
         answers: [
-            "1",
-            "2",
-            "3",
+            "( )",
+            "{ }",
+            "[ ]",
+            "< >",
         ],
-        correctAnswer: "3"
+        correctAnswer: "[ ]"
     },
     {
-        question: "When?",
+        question: "What does Math.random() return?",
         answers: [
-            "what?",
-            "who?",
-            "no",
+            "A random number from 1 to infinity",
+            "A random number from 0 to whatever number you place inside ()",
+            "A random number from -infinty to infinity",
+            "A random number from 0 to 1",
         ],
-        correctAnswer: "no"
-    }
+        correctAnswer: "A random number from 0 to 1"
+    },
+    {
+        question: "What operator do you use to depict 'equal value and equal type'?",
+        answers: [
+            "=",
+            "===",
+            "=",
+            "!=",
+        ],
+        correctAnswer: "==="
+    },
+    {
+        question: "Where should JavaScript be added in an HTML?",
+        answers: [
+            "Wherever you want!",
+            "Before < body >",
+            "At the end, before < /body >",
+            "In the <head>",
+        ],
+        correctAnswer: "At the end, before < /body >"
+    },
+    {
+        question: "True or False: Javascript MUST be written in HTML and cannot be its own external file",
+        answers: [
+            "True: you have to have all of your code in one file",
+            "False: You can have an external JS file if you want",
+        ],
+        correctAnswer: "False: You can have an external JS file if you want"
+    },
 ]
 
 function displayMessage(type, message) {
@@ -36,7 +66,7 @@ function displayMessage(type, message) {
 var questionIndex = 0
 
 //score starts at 60
-var secondsLeft = 6
+var secondsLeft = 60
 
 //quiz should take 60 seconds (fix it later)
 function setTime() {
@@ -143,13 +173,13 @@ $(document).ready(function () {
     $("#submit").hide();
     $("#save").hide();
     $("#name").hide();
-    $("#high-scores").hide();
+    // $("#high-scores").hide();
     $("#retest").hide();
 });
 
 //creat score sections
 $("#save").on("click", function (event) {
-    // $("#high-scores").show();
+    $("#high-scores").show();
     $("#retest").show();
     var initials = document.querySelector("#name").value;
     //if user doesnt input text, send error
@@ -182,25 +212,9 @@ $("#save").on("click", function (event) {
 
 });
 
-//add score to board without deleting others
-// function renderScore() {
-
-//     //make a new li for each input
-//     for (var i = 0; i < user-scores.length; i++) {
-//         var element = user-scores[i];
-
-//         var li = document.createElement("li")
-//         li.textContent = element
-//         li.setAttribute("data-index", i);
-
-//         li.appendChild(save)
-//         userScore.appendChild(li)
-        
-//     }
-// }
-
 //create the ability to retry
 $("#retest").on("click", function () {
     document.location.reload();
 })
 //create the ability to see the scores
+// $("#high-scores").collapse('toggle');
