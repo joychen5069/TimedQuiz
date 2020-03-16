@@ -2,7 +2,8 @@ var timeEl = document.querySelector(".time");
 var msgDiv = document.querySelector("#msg");
 // var userInput = document.querySelector("#user-init")
 var userScore = document.querySelector("#user-scores")
-
+var ding = document.createElement("audio")
+ding.setAttribute("src", "assets/Wrong-answer-sound-effect.mp3");
 
 // userInput.textContent = username;
 // userScore.textContent = userscore;
@@ -95,16 +96,15 @@ function setTime() {
 //if time runs out, alert the user
 function sendMessage() {
     if (secondsLeft === 0)
-        $("#results").append("You failed to complete the quiz. Refresh and try again")
+        ding.play();
+    $("#results").append("You failed to complete the quiz. Refresh and try again")
     $("#submit").hide();
     $("#questions").html("")
     $("#answers").html("")
 }
 
-//the faster the user completes the quiz, the higher their score (aka their score is the number of seconds left)
-
-//five question quiz INPUT ACTUAL QUESTIONS LATER
-//figure out how to go from question 1 to question 2 and so forth
+//five question quiz
+//how to go from question 1 to question 2 and so forth
 function AskQuestion() {
     var Question = MyQuestions[questionIndex];
 
@@ -153,7 +153,8 @@ $("#submit").on("click", function () {
         }
     }
     else {
-        //if user fails to get question right, DING them and keep question on page
+        ding.play();
+
     }
 }
 
@@ -174,8 +175,9 @@ $(document).ready(function () {
     $("#save").hide();
     $("#name").hide();
     $("#high-scores").hide();
-    $("#buttonHigh").hide();
+    // $("#buttonHigh").hide();
     $("#retest").hide();
+    $("#reset").hide();
 
     //load high score board
     if (localStorage.getItem("#user-scores") === null) {
@@ -197,7 +199,7 @@ $("#save").on("click", function (event) {
         var board = []
     }
     else {
-    var board = JSON.parse(localStorage.getItem("#user-scores"));
+        var board = JSON.parse(localStorage.getItem("#user-scores"));
     }
 
     var highscore = initials + " " + secondsLeft;
@@ -209,20 +211,22 @@ $("#save").on("click", function (event) {
     var ul = document.createElement("ul");
     document.getElementById("user-scores").appendChild(ul);
 
-    board.forEach(function(board) {
+    board.forEach(function (board) {
         var li = document.createElement("li");
         ul.append(li);
 
         li.innerHTML += board;
     });
 
+    $("#save").hide();
+    $("#reset").show();
 });
+
+$("#reset").on("click", function () {
+    localStorage.clear();
+})
 
 //create the ability to retry
 $("#retest").on("click", function () {
     document.location.reload();
-})
-//create the ability to see the scores
-$("#buttonHigh").on("click", function() {
-    $("high-scores").toggle();
 })

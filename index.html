@@ -16,16 +16,18 @@
             <!--time componet-->
             <div class="time"> </div>
 
-            <header class="card-body intro">
+            <div class="card-body intro">
+                <h3>JavaScript Quiz</h3>
                 <p>
                     Welcome to the coding quiz. You have 60 seconds to complete the quiz. You cannot go onto the next
-                    question until you have answered the first one correctly. You can see your high scores and reset them at the
+                    question until you have answered the first one correctly. You can see your high scores and reset
+                    them at the
                     end if you wish.
                 </p>
                 <p>
                     Click on the start button below to get started
                 </p>
-            </header>
+            </div>
 
             <!--append the questions to this div-->
             <div class="card" id="questions"> </div>
@@ -42,8 +44,6 @@
             <div>
                 <button class="btn btn-secondary" type="button" id="start" name="start">Start</button>
                 <button class="btn btn-secondary" type="button" id="submit">Submit</button>
-                <button class="btn btn-secondary" type="button" id="save">save</button>
-                <button class="btn btn-secondary" type="button" id="retest">Retest</button>
             </div>
 
             <!--part of the code where they submit their score-->
@@ -55,23 +55,42 @@
                 </form>
             </div>
 
+            <div>
+                <button class="btn btn-secondary" type="button" id="save">save</button>
+                <button class="btn btn-secondary" type="button" id="retest">Retest</button>
+                <button class="btn btn-secondary" type="button" id="reset">Reset Scores</button>
+            </div>
 
 
-            <!--have card visible when user clicks-->
+
+            <!-- have card visible when user clicks-->
             <p>
-                <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#high-scores"
-                    id="buttonHigh">
+                <a class="btn btn-secondary" data-toggle="collapse" href="#high" role="button" aria-expanded="false"
+                    aria-controls="high" id="high-scores">
                     High Scores
-                </button>
+                </a>
             </p>
-            <div class="card collapse" id="high-scores">
-                <h5>High Scores</h5>
-                <ul id="user-scores"></ul>
+            <div class="collapse" id="high">
+                <div class="card card-body">
+                    <ul id="user-scores"></ul>
+                </div>
             </div>
 
         </div>
+
+
     </div>
 
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="./assets/script.js"></script>
 </body>
