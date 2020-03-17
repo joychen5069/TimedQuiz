@@ -1,7 +1,8 @@
 body {
     margin-top: 10px;
     align-self: center;
-    padding: 0px ;
+    padding: 0px;
+    font-size: large;
 }
 
 h3 {
@@ -12,7 +13,21 @@ h3 {
 body,
 .card,
 #form {
-    background-color: rgb(109, 113, 251)
+    background-color: rgb(75, 147, 255)
+}
+
+.btn {
+    background-color: rgb(99, 99, 99);
+    text
+}
+
+#start,
+#submit,
+#save,
+#retest,
+#reset,
+#high-scores {
+    background-color: rgb(8, 0, 48);
 }
 
 .intro,

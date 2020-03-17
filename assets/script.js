@@ -203,7 +203,7 @@ $("#save").on("click", function (event) {
         var board = JSON.parse(localStorage.getItem("#user-scores"));
     }
 
-    var highscore = secondsLeft + " | " + initials;
+    var highscore = secondsLeft + "  " + initials;
     board.push(highscore)
     localStorage.setItem("#user-scores", JSON.stringify(board));
     console.log(board) //make sure it gets added to list
